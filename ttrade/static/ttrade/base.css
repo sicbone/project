@@ -1,0 +1,9 @@
+.navbar-brand {
+    font-family: 'Righteous', cursive;
+}
+
+body {
+    background:url("http://www.psdgraphics.com/file/colorful-triangles-background.jpg") no-repeat;
+    background-size:cover;
+    background-position:center center;
+}

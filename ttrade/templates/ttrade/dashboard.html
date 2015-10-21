@@ -1,0 +1,36 @@
+{%extends 'ttrade/base.html'%}
+{%load staticfiles%}
+{%load bootstrap3%}
+{% block title %}
+Dashboard
+{% endblock %}
+{% block content %}
+<table class="table table-user-info">
+    <tbody>
+        <tr>
+            <th>User Name:</th>
+            <td>{{user.username}}</td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>{{user.email}}</td>
+        </tr>
+        <tr>
+            <th>Karma:</th>
+            <td>{{views.userinfo.karma}}</td>
+        </tr>
+        <tr>
+            <th>Address:</th>
+            <td>{{views.userinfo.address}}</td>
+        </tr>
+        <tr>
+            <th>Age:</th>
+            <td>views.userinfo[age]</td>
+        </tr>
+        <tr>
+            <th>Contact:</th>
+            <td>views.userinfo[contact]</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

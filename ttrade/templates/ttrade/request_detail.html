@@ -1,0 +1,38 @@
+{%extends 'ttrade/base.html'%}
+{% block title %}
+    Request - {{object.title}}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h4>Title</h4> 
+        <p>{{object.title}}</p>
+        <h4>User</h4>
+        <p>{{object.user}}</p>
+        <h4>Content</h4>
+        <p>{{object.content}}</p>
+        <h4>Time</h4>
+        <p>{{object.time}}</p>
+        <h4>Recurring</h4>
+        {{ if object.recur==True }}
+        <p>Yes</p>
+        {{ else }}
+        <p>No</p>
+        {{ endif }}
+        <h4>Date</h4>
+        <p>{{object.date}}</p>
+        <h4>Day</h4>
+        <p>{{object.day}}</p>
+        <h4>Other</h4>
+        <p>{{object.other}}</p>
+        <h4>Tag(s):</h4>
+            <ul>
+                {% for t in object.tag.all %}
+                    <li>{{t.title}}</li>
+                {% endfor %}
+            </ul>
+        <br>
+        <a href="{{object.id}}/edit"><button type="button" class="btn btn-primary">
+            Edit
+        </button></a>
+    </div>
+{%endblock%}

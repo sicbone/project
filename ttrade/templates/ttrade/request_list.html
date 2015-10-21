@@ -1,0 +1,45 @@
+{% extends 'ttrade/base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% block title %}
+    Requests
+{% endblock %}
+{% block content %}
+    <div>
+        {% if object_list  %}
+            {% for request in object_list  %}
+            <li><a href={%url 'detailr' request.id %}>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th>{{request.id}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>User</th><td>{{request.user}}</td>
+                      </tr>
+                      <tr>
+                        <th>Content</th><td>{{request.content}}</td>
+                      </tr>
+                      <tr>
+                        <th>Time</th><td>{{request.time}}</td>
+                      </tr>
+                      <tr>
+                        <th>Recur</th><td>{{request.recur}}</td>
+                      </tr>
+                      <tr>
+                        <th>Date</th><td>{{request.date}}</td>
+                      </tr>
+                      <tr>
+                        <th>Other</th><td>{{request.other}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </a></li>
+            {% endfor %}
+          </div>
+    {% else %}
+        <p>No requests are available.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{%extends 'ttrade/base.html'%}
+{% block title %}
+    Favor - {{object.title}}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h4>Title</h4> 
+        <p>{{object.title}}</p>
+        <h4>User</h4>
+        <p>{{object.user}}</p>
+        <h4>Content</h4>
+        <p>{{object.content}}</p>
+        <br>
+        <a href="{{object.id}}/edit"><button type="button" class="btn btn-primary">
+            Edit
+        </button></a>
+    </div>
+{%endblock%}
