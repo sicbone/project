@@ -167,3 +167,39 @@ class MyViewR(TemplateView):
 
 class UserDetail(DetailView):
     model = UserProfile
+
+class AcceptedList(ListView):
+    model = Request
+    queryset = Request.objects.all()
+    
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(AcceptedList, self).dispatch(*args, **kwargs)
+    
+    def get_queryset(self):
+        curruser = UserProfile.objects.get(user=self.request.user)
+        self.queryset = Request.objects.all().filter(acceptor=curruser)
+        return self.queryset
+            
+    def get_context_data(self, **kwargs):
+        context = super(AcceptedList, self).get_context_data(**kwargs)
+        context['curruser'] = UserProfile.objects.get(user=self.request.user)
+        return context
+
+class PostedList(ListView):
+    model = Request
+    queryset = Request.objects.all()
+    
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PostedList, self).dispatch(*args, **kwargs)
+    
+    def get_queryset(self):
+        curruser = UserProfile.objects.get(user=self.request.user)
+        self.queryset = Request.objects.all().filter(user=curruser)
+        return self.queryset
+            
+    def get_context_data(self, **kwargs):
+        context = super(PostedList, self).get_context_data(**kwargs)
+        context['curruser'] = UserProfile.objects.get(user=self.request.user)
+        return context

@@ -27,5 +27,7 @@ urlpatterns = patterns('',
     #url(r'^add/favor/$', views.MyViewF.as_view(), name="favor_add"),
     url(r'^user/(?P<pk>\d+)$', views.UserDetail.as_view(), name='userdetail'),
     url(r'^acceptRequest/$', views.accept_request, name='acceptrequest'),
+    url(r'^accepted/(?P<pk>\d+)$', views.AcceptedList.as_view(), name="accepted_list"),
+    url(r'^posted/(?P<pk>\d+)$', views.PostedList.as_view(), name="posted_list"),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT,}),
 )

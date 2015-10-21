@@ -5,6 +5,12 @@
 Dashboard
 {% endblock %}
 {% block content %}
+<style>
+    a{
+        text-decoration:none;
+        color:black;
+    }
+</style>
 <table class="table table-user-info">
     <tbody>
         <tr>
@@ -34,6 +40,12 @@ Dashboard
         <tr>
             <th>Time Points:</th>
             <td>{{user.profile.timepoint}}</td>
+        </tr>
+        <tr>
+            <th><a href="../accepted/{{ user.id }}">Accepted Requests</a></th>
+        </tr>
+        <tr>
+            <th><a href="../posted/{{ user.id }}">Posted Requests</a></th>
         </tr>
     </tbody>
 </table>
