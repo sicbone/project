@@ -90,3 +90,8 @@ LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/dashboard'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = '/media/'
+
+#reminder: changed origin to ori for pushing to github

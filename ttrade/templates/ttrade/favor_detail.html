@@ -3,16 +3,20 @@
     Favor - {{object.title}}
 {% endblock %}
 {% block content %}
-    <div class="container">
-        <h4>Title</h4> 
-        <p>{{object.title}}</p>
-        <h4>User</h4>
-        <p>{{object.user}}</p>
-        <h4>Content</h4>
-        <p>{{object.content}}</p>
-        <br>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Title</th><td>{{object.title}}</td>
+                </tr>
+                <tr>
+                    <th>User</th><td><img src="/media/{{favor.user.picture}}" style="height:30px; width:30px;" %} />{{object.user}}</td>
+                </tr>
+                <tr>
+                    <th>Content</th><td>{{object.content}}</td>
+                </tr>
+            </tbody>
+        </table>
         <a href="{{object.id}}/edit"><button type="button" class="btn btn-primary">
             Edit
         </button></a>
-    </div>
 {%endblock%}

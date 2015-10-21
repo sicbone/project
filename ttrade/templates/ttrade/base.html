@@ -1,7 +1,8 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
+<html>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Righteous|Courgette|Poiret+One|Lora' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="{% static 'ttrade/base.css' %}" />
 <head>
   {% bootstrap_css %}
@@ -16,6 +17,7 @@
   <script src="content/js/jquery.min.js"></script>
   <script src="content/js/bootstrap.min.js"></script>
   <style>
+    body{background-color:transparent;}
     bar {justify-content: space-around;}
   </style>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -66,7 +68,7 @@
             
             $.ajax({
                 type: "POST",
-                url: "/add/",
+                url: "/add/request",
                 dataType: "json",
                 data: {
                     "title": $("#" + formid + " #id_title").val(),
@@ -171,8 +173,8 @@
         });
     });
 </script>
-
 </head>
+
 <body>
     <div class="container">
       <nav class="navbar navbar-default">
@@ -184,7 +186,7 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     {%if user.is_authenticated%}
-                      <img src="/media/{{user.picture}}" height="30px" %} />
+                      <img src="/media/{{user.profile.picture}}" style="height:30px; width:30px;" />
                       Hi {{user.username}}!
                     {%else%}
                       Login/Register here!
@@ -232,9 +234,19 @@
             </ul>
           </div>
         </div>
-      </div> <!-- /container -->
+      </div>
     </div>
     <script>
       $("th").addClass("col-xs-6");
     </script>
 </body>
+<footer class="footer">
+    <div class="container"><div class="row">
+        <div class="col-xs-3 col-xs-offset-9" style="text-align:right">
+            Made by Marcus Low and Fan Sicheng<br>
+            <span class="glyphicon glyphicon-copyright-mark"></span>
+            2015 TICK4TOCK
+        </div></div>
+    </div></div>
+</footer>
+</html>

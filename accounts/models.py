@@ -13,8 +13,8 @@ class UserProfile(models.Model):
     karma = models.IntegerField(blank=True, default=0)
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
-    contact = models.TextField(null=True, blank=True)
-
+    contact = models.CharField(max_length=225, null=True, blank=True)
+    timepoint = models.IntegerField(default=10)
     # Override the __unicode__() method to return out something meaningful!
     def __unicode__(self):
         return self.user.username

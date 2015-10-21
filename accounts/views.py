@@ -1,9 +1,10 @@
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic.edit import CreateView, UpdateView
 from accounts.forms import UserForm, UserProfileForm
 from .models import UserProfile
+from django.contrib.auth.models import User
 
 def registration(request):
 
@@ -56,6 +57,24 @@ def registration(request):
     return render(request,
             'accounts/register.html',
             {'user_form': user_form, 'profile_form': profile_form, 'registered': registered} )
+            
+def karma_up(request):
+    targetUsername = request.GET.get('target')
+    targetChange = request.GET.get('change')
+    targetUser = User.objects.get(username = targetUsername)
+    targetProfile = UserProfile.objects.get(user = targetUser)
+    targetProfile.karma = targetProfile.karma + int(targetChange)
+    targetProfile.save()
+    return HttpResponse()
+    
+def karma_down(request):
+    targetUsername = request.GET.get('target')
+    targetChange = request.GET.get('change')
+    targetUser = User.objects.get(username = targetUsername)
+    targetProfile = UserProfile.objects.get(user = targetUser)
+    targetProfile.karma = targetProfile.karma + int(targetChange)
+    targetProfile.save()
+    return HttpResponse()
             
 # class UserProfileUpdate(UpdateView):
 #     model = UserProfile

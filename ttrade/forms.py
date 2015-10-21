@@ -11,6 +11,7 @@ class RequestForm(forms.ModelForm):
     class Meta: 
         model = Request
         fields = '__all__'
+        exclude = ('acceptor','accepted',)
         
     def __init__(self, *args, **kwargs):
         super(RequestForm, self).__init__(*args, **kwargs)
@@ -19,14 +20,10 @@ class RequestForm(forms.ModelForm):
                 
         tag = Div('tag', css_class="col-xs-12", style="padding:0px;") 
         self.helper.layout.pop(8) 
-        self.helper.layout.insert(8,Fieldset("Select tag",tag, Button("createtagmodal", value="Create New Tag", css_class="btn btn-primary btn-sm col-xs-12 ", data_toggle="modal", data_target="#myModal")))
+        self.helper.layout.insert(9,Fieldset("Select tag",tag, Button("createtagmodal", value="Create New Tag", css_class="btn btn-primary btn-sm col-xs-12 ", data_toggle="modal", data_target="#myModal")))
         
         self.helper.layout.append(Button('btn_createrequest', 'Create Request', css_class='createrequest', style="margin-top:15px;"))
         self.helper.layout.append(Hidden(name='btn_createrequest', value="btn_createrequest"))
-        
-        self.helper.layout.pop(0)
-        self.helper.layout.pop(9)
-        self.helper.layour.pop(10)
         
     def full_clean(self):
         super(RequestForm, self).full_clean()
@@ -38,6 +35,7 @@ class RequestForm(forms.ModelForm):
 class FavorForm(forms.ModelForm):
     class Meta: 
         model = Favor
+        exclude = ('user',)
         
     helper = FormHelper()
     helper.form_method = 'POST'
@@ -78,3 +76,16 @@ class TagForm(forms.ModelForm):
         self.helper.form_id = "tagform"
         self.helper.layout.append(Hidden(name='btn_createtag', value="btn_createtag"))
         self.helper.layout.append(Button('btn_createtag', 'Create Tag', css_class='createtag', data_dismiss="modal"))
+
+class RequestFormUpdate(forms.ModelForm):
+    class Meta: 
+        model = Request
+        fields = '__all__'
+        exclude = ('user','acceptor','accepted',)
+        
+    def __init__(self, *args, **kwargs):
+        super(RequestFormUpdate, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_id = "requestformupdate"
+        
+        self.helper.add_input(Submit('submit', 'Update'))

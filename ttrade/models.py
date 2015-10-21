@@ -24,6 +24,7 @@ class Request(models.Model):
     tag = models.ManyToManyField('Tag', related_name='requests', null=True, blank=True)
     acceptor = models.ForeignKey(UserProfile, blank=True, null=True, related_name="request_acceptor")
     accepted = models.BooleanField(default=False)
+    duration = models.IntegerField(default=0, null=True, blank=True)
     
     def get_absolute_url(self):
         return reverse("detailr", kwargs={"pk":self.pk})
@@ -35,7 +36,6 @@ class Favor(models.Model):
     user = models.ForeignKey(UserProfile, blank=True, null=True)
     title = models.CharField(max_length=255)
     content = models.TextField()
-    #tag = models.ManyToManyField('Tag', related_name='favors', null=True, blank=True)
     
     def __unicode__(self):
         return self.title

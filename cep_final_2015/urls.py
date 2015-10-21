@@ -4,6 +4,8 @@ from django.views.generic import ListView, DetailView
 from ttrade.models import Request, Favor
 from ttrade import views
 
+from django.conf import settings
+
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.home, name='home'),
@@ -23,4 +25,7 @@ urlpatterns = patterns('',
     url(r'^favor/(?P<pk>\d+)/delete/$', views.FavorDelete.as_view(),  name='favor_delete'),
     url(r'^add/request/$', views.MyViewR.as_view(), name="request_add"),
     #url(r'^add/favor/$', views.MyViewF.as_view(), name="favor_add"),
+    url(r'^user/(?P<pk>\d+)$', views.UserDetail.as_view(), name='userdetail'),
+    url(r'^acceptRequest/$', views.accept_request, name='acceptrequest'),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT,}),
 )
