@@ -30,5 +30,5 @@ urlpatterns = patterns('',
     url(r'^accepted/(?P<pk>\d+)$', views.AcceptedList.as_view(), name="accepted_list"),
     url(r'^posted/(?P<pk>\d+)$', views.PostedList.as_view(), name="posted_list"),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT,}),
-    url(r'^favor/user/(?P<pk>\d+)$', views.FavorListUser.as_view(), name="userfavorlist"),
+    url(r'^favorlistall', views.FavorListAll.as_view(), name="favorlistall"),
 )

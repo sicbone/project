@@ -19,18 +19,20 @@ def dashboard(request):
     return render(request, 'ttrade/dashboard.html')
 
 def accept_request(request):
-    #duration = request.GET.get('targetDuration')
+    duration = request.GET.get('targetDuration')
     me = request.user
     targetUser = User.objects.get(username = request.GET.get('targetUser'))
     meProfile = UserProfile.objects.get(user = me)
     targetProfile = UserProfile.objects.get(user = targetUser)
     targetContent = request.GET.get('targetContent')
     theRequest = Request.objects.get(id = int(targetContent))
-    #targetProfile.timepoint = targetProfile.timepoint+int(duration)
-    #meProfile.timepoint = meProfile.timepoint-int(duration)
+    targetProfile.timepoint = targetProfile.timepoint+int(duration)
+    meProfile.timepoint = meProfile.timepoint-int(duration)
     theRequest.acceptor = meProfile
     theRequest.accepted = True
     theRequest.save()
+    meProfile.save()
+    targetProfile.save()
     return HttpResponse()
     
 class RequestList(ListView):
@@ -202,22 +204,6 @@ class PostedList(ListView):
         context['curruser'] = UserProfile.objects.get(user=self.request.user)
         return context
         
-class FavorListUser(ListView):
+class FavorListAll(ListView):
     model = Favor
-    queryset = Request.objects.all()
-    
-    @method_decorator(login_required)
-    #def get(self, request, pk):
-        
-    def dispatch(self, *args, **kwargs):
-        return super(FavorListUser, self).dispatch(*args, **kwargs)
-    
-    def get_queryset(self):
-        curruser = UserProfile.objects.get(user=self.request.user)
-        self.queryset = Favor.objects.all().filter(user=curruser)
-        return self.queryset
-            
-    def get_context_data(self, **kwargs):
-        context = super(FavorListUser, self).get_context_data(**kwargs)
-        context['targetuser'] = UserProfile.objects.get(user=self.request.user)
-        return context
+    queryset = Favor.objects.all()

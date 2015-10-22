@@ -68,14 +68,16 @@
             
             $.ajax({
                 type: "POST",
-                url: "/add/request",
+                url: "/add/request/",
                 dataType: "json",
                 data: {
                     "title": $("#" + formid + " #id_title").val(),
+                    "form": $("#" + formid).serialize(),
                 },
                 success: function(data) {
                     if (data.status == 1){
                         $('#mymessage').html("")
+                        //Populate the dropdown list with all the folders returned in json
                         var $el = $("#id_tag");
                         $el.empty(); // remove old options
                         $.each(data.message, function(key, value) {
@@ -94,6 +96,8 @@
                 }
             });
         });
+        
+
         
         $('.btn.createrequest').click(function(e) {
             formid = $(this).parent().attr("id"); //find the formid of the button pressed via parent 
@@ -213,6 +217,7 @@
               <li><a href="/dashboard">Dashboard</a></li>
               <li><a href="/requestlist">Requests</a></li>
               <li><a href="/favorlist">Favors</a></li>
+              <li><a href="/favorlistall">All Favors</a></li>
             </ul>
           </div>
         </div>

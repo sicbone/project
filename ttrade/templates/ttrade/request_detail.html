@@ -8,11 +8,11 @@
            $("#acceptRequest").click(function() {
                var targetContent = "{{object.id}}";
                var targetUser = "{{object.user}}";
-               //var targetDuration = "{{object.duration}}";
+               var targetDuration = "{{object.duration}}";
                $.get("/acceptRequest/", {
                    targetUser: targetUser,
                    targetContent: targetContent,
-                   //targetDuration: targetDuration,
+                   targetDuration: targetDuration,
                }, function() {
                    window.location.reload(false);
                });
