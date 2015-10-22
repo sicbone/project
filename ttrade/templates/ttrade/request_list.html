@@ -35,6 +35,9 @@
                         <th>User</th><td><img src="/media/{{request.user.picture}}" style="height:30px; width:30px;" %} />{{request.user}}</td>
                       </tr>
                       <tr>
+                        <th>Karma</th><td>{{request.user.karma}}</td>
+                      </tr>
+                      <tr>
                         <th>Content</th><td>{{request.content}}</td>
                       </tr>
                       <tr>
@@ -69,6 +72,9 @@
                       </tr>
                       <tr>
                         <th>Duration</th><td>{{request.duration}}</td>
+                      </tr>
+                      <tr>
+                        <th>Location</th><td>{{request.location}}</td>
                       </tr>
                     </tbody>
                   </table>

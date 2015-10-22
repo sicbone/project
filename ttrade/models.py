@@ -25,6 +25,7 @@ class Request(models.Model):
     acceptor = models.ForeignKey(UserProfile, blank=True, null=True, related_name="request_acceptor")
     accepted = models.BooleanField(default=False)
     duration = models.IntegerField(default=0, null=True, blank=True)
+    location = models.TextField(null=True, blank=True)
     
     def get_absolute_url(self):
         return reverse("detailr", kwargs={"pk":self.pk})

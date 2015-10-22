@@ -8,11 +8,11 @@
            $("#acceptRequest").click(function() {
                var targetContent = "{{object.id}}";
                var targetUser = "{{object.user}}";
-               var targetDuration = "{{object.duration}}";
+               //var targetDuration = "{{object.duration}}";
                $.get("/acceptRequest/", {
                    targetUser: targetUser,
                    targetContent: targetContent,
-                   targetDuration: targetDuration,
+                   //targetDuration: targetDuration,
                }, function() {
                    window.location.reload(false);
                });
@@ -26,6 +26,9 @@
             </tr>
             <tr>
                 <th>User</th><td><a href="../user/{{ object.user.id }}"><img src="/media/{{object.user.picture}}" style="height:30px; width:30px;" %} /></a>{{object.user}}</td>
+            </tr>
+            <tr>
+                <th>Karma</th><td>{{object.user.karma}}</td>
             </tr>
             <tr>
                 <th>Content</th><td>{{object.content}}</td>
@@ -64,6 +67,9 @@
             </tr>
             <tr>
                 <th>Duration</th><td>{{object.duration}}</td>
+            </tr>
+            <tr>
+                <th>Location</th><td>{{object.location}}</td>
             </tr>
             <tr>
                 <th>Tag(s):</th>

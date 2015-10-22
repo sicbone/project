@@ -16,6 +16,10 @@ body{
     position: fixed;
 }
 
+#footer {
+    padding:10px 0 10px 0;
+}
+
 th{
     font-family: 'Courgette', cursive;
 }

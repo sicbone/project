@@ -19,15 +19,15 @@ def dashboard(request):
     return render(request, 'ttrade/dashboard.html')
 
 def accept_request(request):
-    duration = request.GET.get('targetDuration')
+    #duration = request.GET.get('targetDuration')
     me = request.user
     targetUser = User.objects.get(username = request.GET.get('targetUser'))
     meProfile = UserProfile.objects.get(user = me)
     targetProfile = UserProfile.objects.get(user = targetUser)
     targetContent = request.GET.get('targetContent')
     theRequest = Request.objects.get(id = int(targetContent))
-    targetProfile.timepoint = targetProfile.timepoint+int(duration)
-    meProfile.timepoint = meProfile.timepoint-int(duration)
+    #targetProfile.timepoint = targetProfile.timepoint+int(duration)
+    #meProfile.timepoint = meProfile.timepoint-int(duration)
     theRequest.acceptor = meProfile
     theRequest.accepted = True
     theRequest.save()
@@ -122,12 +122,6 @@ class MyViewR(TemplateView):
     request_form_class = RequestForm
     template_name = "ttrade/request_hybrid.html"
     
-    def form_valid(self, form):
-            curruser = UserProfile.objects.get(user=self.request.user)
-            form.instance.user = curruser
-            form.save()
-            return super(MyViewR, self).form_valid(form)
-    
     def get(self, request, *args, **kwargs):
         kwargs.setdefault("createtag_form", self.tag_form_class())
         kwargs.setdefault("createrequest_form", self.request_form_class())
@@ -146,6 +140,8 @@ class MyViewR(TemplateView):
                 response_dict['message'] = form.errors.as_ul()
                 return HttpResponse(json.dumps(response_dict, cls=DjangoJSONEncoder))
             else:
+                curruser = UserProfile.objects.get(user=self.request.user)
+                form.instance.user = curruser
                 form.save()
                 data = Tag.objects.all()
                 response_dict = {'status': 1}
@@ -159,6 +155,8 @@ class MyViewR(TemplateView):
                 response_dict['message'] = form.errors.as_ul()
                 return HttpResponse(json.dumps(response_dict, cls=DjangoJSONEncoder))
             else:
+                curruser = UserProfile.objects.get(user=self.request.user)
+                form.instance.user = curruser
                 form.save()
                 response = {'status': 1, 'message':'Request is created!'}
                 return HttpResponse(json.dumps(response, cls=DjangoJSONEncoder))
@@ -202,4 +200,24 @@ class PostedList(ListView):
     def get_context_data(self, **kwargs):
         context = super(PostedList, self).get_context_data(**kwargs)
         context['curruser'] = UserProfile.objects.get(user=self.request.user)
+        return context
+        
+class FavorListUser(ListView):
+    model = Favor
+    queryset = Request.objects.all()
+    
+    @method_decorator(login_required)
+    #def get(self, request, pk):
+        
+    def dispatch(self, *args, **kwargs):
+        return super(FavorListUser, self).dispatch(*args, **kwargs)
+    
+    def get_queryset(self):
+        curruser = UserProfile.objects.get(user=self.request.user)
+        self.queryset = Favor.objects.all().filter(user=curruser)
+        return self.queryset
+            
+    def get_context_data(self, **kwargs):
+        context = super(FavorListUser, self).get_context_data(**kwargs)
+        context['targetuser'] = UserProfile.objects.get(user=self.request.user)
         return context

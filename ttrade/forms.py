@@ -11,7 +11,7 @@ class RequestForm(forms.ModelForm):
     class Meta: 
         model = Request
         fields = '__all__'
-        exclude = ('acceptor','accepted',)
+        exclude = ('user','acceptor','accepted',)
         
     def __init__(self, *args, **kwargs):
         super(RequestForm, self).__init__(*args, **kwargs)
@@ -19,8 +19,8 @@ class RequestForm(forms.ModelForm):
         self.helper.form_id = "requestform"
                 
         tag = Div('tag', css_class="col-xs-12", style="padding:0px;") 
-        self.helper.layout.pop(8) 
-        self.helper.layout.insert(9,Fieldset("Select tag",tag, Button("createtagmodal", value="Create New Tag", css_class="btn btn-primary btn-sm col-xs-12 ", data_toggle="modal", data_target="#myModal")))
+        self.helper.layout.pop(7) 
+        self.helper.layout.insert(8,Fieldset("Select tag",tag, Button("createtagmodal", value="Create New Tag", css_class="btn btn-primary btn-sm col-xs-12 ", data_toggle="modal", data_target="#myModal")))
         
         self.helper.layout.append(Button('btn_createrequest', 'Create Request', css_class='createrequest', style="margin-top:15px;"))
         self.helper.layout.append(Hidden(name='btn_createrequest', value="btn_createrequest"))
